@@ -1,19 +1,18 @@
-def randomFind(size, array):
-    xLength = array.shape[0]
-    yLength = array.shape[1]
-    output = randXs = randYs = []
+import numpy as np
+from numpy.random.mtrand import random
+
+def testTrainDivider(array, percent):
+    A = []
+    for i in range(0, array.shape[0]):
+        for j in range(0, array.shape[1]):
+            A.append([i, j])
+    B= []
+    indexHistory = []
+    for i in range(0, int(percent*len(A))):
+        tempIndex = np.random.randint(0, len(A))
+        if tempIndex != indexHistory:
+            B.append(A[tempIndex])
+            A.pop(tempIndex)
+            indexHistory.append(tempIndex)
     
-    randX = np.random.randint(0, xLength)
-    randY = np.random.randint(0, yLength)
-    
-    for i in range(0, size):
-        while randXs == randX and randYs == randY:
-            randX = np.random.randint(0, xLength)
-            randY = np.random.randint(0, yLength)
-        else:
-            randXs.append(randX)
-            randYs.append(randY)
-        
-        output[i] = [randXs[i], randYs[i]]
-     
-    return output
+    return [B, A]
